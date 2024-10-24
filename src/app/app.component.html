@@ -1,13 +1,16 @@
 <h2>Lista de Tareas</h2>
-<div>
+
+<div class="task-list">
 <app-task-item
 *ngFor="let item of items"
       
       [titulo]="item.titulo" 
       [descripcion]="item.descripcion"
-      [backgroundColor]="item.backgroundColor"
-      
+      [backgroundColor]="item.backgroundColor"  
 >
 </app-task-item>
+</div>
 
+<div class="new-task">
+<button class="new-task__button" mat-button (click)="openDialog()">Add more</button>
 </div>
