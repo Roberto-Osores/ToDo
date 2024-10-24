@@ -1,0 +1,32 @@
+<div class="task">
+    
+  <div class="task__info"[style.background-color]="backgroundColor">
+    <div><mat-icon>mood</mat-icon></div>
+    <div class="task__info-titulo">{{titulo}}</div>
+   <!--<div class="task__info-descripcion">{{descripcion}}</div> -->
+  </div>
+
+  <div class="task__action">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>check circle</mat-icon>
+        <span>Marcar como completada</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Editar la descripción</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Borrar esta tarea</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
