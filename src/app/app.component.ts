@@ -51,12 +51,24 @@ export class AppComponent {
     // LLAMADO A LA API
     loadData(): void {
       this.apiService.getTasks().subscribe(tasks => {
-        this.data = tasks.map((task: { createdAt: string; titulo: string; descripcion: string }) => ({
-          titulo: task.titulo,
-          descripcion: task.descripcion,
-          backgroundColor: this.isOlderThan24Hours(task.createdAt) ? 'red' : 'white'
-        }));
-        this.cdr.detectChanges(); // Manually trigger change detection
+        this.data = tasks.map((task: { createdAt: string; titulo: string; descripcion: string; estado: boolean }) => {
+          let backgroundColor = 'white'; // default color
+    
+          if (task.estado) {
+            backgroundColor = '#ADF7B699';
+          } else if (this.isOlderThan24Hours(task.createdAt)) {
+            backgroundColor = '#FFC09F99';
+          } else {
+            backgroundColor = '#FFEE9399';
+          }
+    
+          return {
+            titulo: task.titulo,
+            descripcion: task.descripcion,
+            backgroundColor
+          };
+        });
+        this.cdr.detectChanges(); // Trigger change detection after updating data
       });
     }
 
