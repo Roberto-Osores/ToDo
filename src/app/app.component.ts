@@ -58,7 +58,7 @@ export class AppComponent {
     // LLAMADO A LA API
     loadData(): void {
       this.apiService.getTasks().subscribe(tasks => {
-        this.data = tasks.map((task: { createdAt: string; titulo: string; descripcion: string; estado: boolean }) => {
+        this.data = tasks.map((task: { createdAt: string; titulo: string; descripcion: string; estado: boolean; icono: string }) => {
           let backgroundColor = 'white'; // default color
     
           if (task.estado) {
@@ -72,6 +72,7 @@ export class AppComponent {
           return {
             titulo: task.titulo,
             descripcion: task.descripcion,
+            icono: task.icono,
             backgroundColor
           };
         });

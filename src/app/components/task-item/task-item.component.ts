@@ -15,4 +15,5 @@ export class TaskItemComponent {
   @Input() titulo: string = '';
   @Input() descripcion: string = '';
   @Input() backgroundColor: string = '';
+  @Input() icono: string = '';
 }
