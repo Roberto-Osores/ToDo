@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Crear una nueva tarea</h2>
+<h2 mat-dialog-title>Nueva Tarea</h2>
 <mat-dialog-content [formGroup]="taskForm">
   
   <!-- Title Input -->
   <mat-form-field>
-    <mat-label>Titulo de la nueva tarea</mat-label>
+    <mat-label>Titulo</mat-label>
     <input matInput formControlName="titulo" maxlength="25" required>
     <mat-error *ngIf="taskForm.controls['titulo'].hasError('required')">
       Title is required.
@@ -15,7 +15,7 @@
 
   <!-- Emoji Select Input -->
   <mat-form-field>
-    <mat-label>Emoji</mat-label>
+    <mat-label>Icono</mat-label>
     <mat-select formControlName="icono" required>
       <mat-option *ngFor="let emoji of emojiOptions" [value]="emoji">
         {{ emoji }}
@@ -41,6 +41,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-  <button mat-button (click)="onSubmit()" [disabled]="taskForm.invalid">Submit</button>
+  <button mat-button mat-dialog-close>Descartar</button>
+  <button mat-button (click)="onSubmit()" [disabled]="taskForm.invalid">Crear</button>
 </mat-dialog-actions>
