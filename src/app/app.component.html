@@ -3,11 +3,12 @@
 <div class="task-list">
 <app-task-item
 *ngFor="let item of data"
-      
+      [id]="item.id"
       [titulo]="item.titulo" 
       [descripcion]="item.descripcion"
       [icono]="item.icono"
-      [backgroundColor]="item.backgroundColor">
+      [backgroundColor]="item.backgroundColor"
+      (taskUpdated)="loadData()">
 </app-task-item>
 </div>
 

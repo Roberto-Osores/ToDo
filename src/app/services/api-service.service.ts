@@ -20,4 +20,7 @@ export class ApiServiceService {
     return this.http.post<any>(this.apiUrl, taskData);
   }
 
+  markTaskAsCompleted(taskId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${taskId}`, { estado: 1 });
+  }
 }
