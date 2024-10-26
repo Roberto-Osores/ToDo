@@ -28,11 +28,18 @@ export class AppComponent {
   title = 'ToDo';
   data: any[] = [];
   
-  constructor(private apiService: ApiServiceService, private cdr: ChangeDetectorRef) {}
-  readonly dialog = inject(MatDialog);
+  constructor(private apiService: ApiServiceService, private cdr: ChangeDetectorRef, private dialog: MatDialog) {}
+  
 
-  openDialog() {
-    this.dialog.open(NewTaskDialogComponent);
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NewTaskDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadData();
+        
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -72,77 +79,4 @@ export class AppComponent {
       });
     }
 
-
-  items = [
-    { 
-      titulo: 'Lecturas OK', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFEE93',
-       
-    },
-    { 
-      titulo: 'Alertas medias', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFC09F', 
-      
-    },
-    { 
-      titulo: 'Alertas rojas', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-       
-    },
-    { 
-      titulo: 'Sensores deshabilitados', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-      
-    },{ 
-      titulo: 'Lecturas OK', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFEE93',
-       
-    },
-    { 
-      titulo: 'Alertas medias', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFC09F', 
-      
-    },
-    { 
-      titulo: 'Alertas rojas', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-       
-    },
-    { 
-      titulo: 'Sensores deshabilitados', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-      
-    },{ 
-      titulo: 'Lecturas OK', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFEE93',
-       
-    },
-    { 
-      titulo: 'Alertas medias', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FFC09F', 
-      
-    },
-    { 
-      titulo: 'Alertas rojas', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-       
-    },
-    { 
-      titulo: 'Sensores deshabilitados', 
-      descripcion: 'Descripcion basica', 
-      backgroundColor: '#FCF5C7', 
-      
-    },
-  ];
 }

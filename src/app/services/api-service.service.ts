@@ -12,8 +12,12 @@ export class ApiServiceService {
 
 
   getTasks(): Observable<any> {
- // Make the HTTP request with the authorization header
+ 
     return this.http.get<any>(this.apiUrl);
+  }
+
+  postTask(taskData: { titulo: string; descripcion: string; icono: string }): Observable<any> {
+    return this.http.post<any>(this.apiUrl, taskData);
   }
 
 }
