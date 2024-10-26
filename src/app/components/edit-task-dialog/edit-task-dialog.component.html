@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Editar Tarea</h2>
+<mat-dialog-content [formGroup]="taskForm">
+  <mat-form-field>
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="titulo" maxlength="25" required>
+    <mat-error *ngIf="taskForm.controls['titulo'].hasError('required')">Título es requerido.</mat-error>
+    <mat-error *ngIf="taskForm.controls['titulo'].hasError('maxlength')">Máximo 25 caracteres permitidos.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="descripcion" maxlength="25" required></textarea>
+    <mat-error *ngIf="taskForm.controls['descripcion'].hasError('required')">Descripción es requerida.</mat-error>
+    <mat-error *ngIf="taskForm.controls['descripcion'].hasError('maxlength')">Máximo 25 caracteres permitidos.</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="onSubmit()" [disabled]="taskForm.invalid">Guardar</button>
+</mat-dialog-actions>

@@ -5,6 +5,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ApiServiceService } from '../../services/api-service.service';
+import { EditTaskDialogComponent } from '../edit-task-dialog/edit-task-dialog.component';
 
 @Component({
   selector: 'app-task-item',
@@ -34,11 +35,32 @@ export class TaskItemComponent {
     });
   }
 
+  editDescription(): void {
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {
+      data: { titulo: this.titulo, descripcion: this.descripcion } // Pass current values
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Assuming result contains updated title and description
+        this.apiService.updateTask(this.id, result).subscribe({
+          next: (response) => {
+            console.log('Task updated:', response);
+            this.taskUpdated.emit();
+            // Refresh the task list in the parent component
+          },
+          error: (error) => {
+            console.error('Error updating task:', error);
+          },
+        });
+      }
+    });
+  }
+
   deleteTask(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: `Are you sure you want to delete the task: ${this.titulo}?` },
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.apiService.deleteTask(this.id).subscribe({
@@ -54,5 +76,5 @@ export class TaskItemComponent {
     });
   }
 
-  
+
 }
