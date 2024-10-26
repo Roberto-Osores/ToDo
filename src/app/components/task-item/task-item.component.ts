@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,7 +23,7 @@ export class TaskItemComponent {
 
   @Output() taskUpdated = new EventEmitter<void>();
 
-  constructor(private apiService: ApiServiceService) {}
+  constructor(private apiService: ApiServiceService, private dialog: MatDialog) {}
 
   markAsCompleted() {
     this.apiService.markTaskAsCompleted(this.id).subscribe({
@@ -31,4 +33,26 @@ export class TaskItemComponent {
       error: (error) => console.error("Error marking task as completed:", error),
     });
   }
+
+  deleteTask(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: `Are you sure you want to delete the task: ${this.titulo}?` },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.apiService.deleteTask(this.id).subscribe({
+          next: () => {
+            console.log(`Task ${this.id} deleted`);
+            this.taskUpdated.emit(); // Emit event to refresh task list
+          },
+          error: (error) => {
+            console.error("Error deleting task:", error);
+          },
+        });
+      }
+    });
+  }
+
+  
 }

@@ -23,4 +23,8 @@ export class ApiServiceService {
   markTaskAsCompleted(taskId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${taskId}`, { estado: 1 });
   }
+
+  deleteTask(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
